@@ -1,4 +1,4 @@
-import express, { Application,Request,Response,NextFunction} from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import CustomError from './utils/CustomError';
@@ -16,16 +16,16 @@ import adminRoute from './Routes/adminRoutes';
 dotenv.config();
 
 
-const authRoute=routes
+const authRoute = routes
 
 if (!process.env.MONGO_URI) {
   throw new Error("MONGO_URI is not defined in environment variables");
 }
 
 mongoose
-.connect(process.env.MONGO_URI)
-.then(() => console.log("Connected to MongoDB"))
-.catch((error) => console.error("MongoDB connection error:", error));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error("MongoDB connection error:", error));
 
 const app: Application = express();
 
@@ -33,11 +33,11 @@ const app: Application = express();
 const corsOptions = {
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization',"X-MongoDb-Id"],
+  allowedHeaders: ['Content-Type', 'Authorization', "X-MongoDb-Id"],
   credentials: true,
 };
 
- 
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser())
@@ -54,8 +54,8 @@ app.use("/api/admin",adminRoute)
 
 app.use(errorHandler)
 
-app.all('*',(req:Request,res:Response,next:NextFunction)=>{
-  const err=new CustomError(`cannot ${req.method} ${req.originalUrl}`,404)
+app.all('*', (req: Request, res: Response, next: NextFunction) => {
+  const err = new CustomError(`cannot ${req.method} ${req.originalUrl}`, 404)
   next(err)
 })
 
