@@ -15,4 +15,6 @@ userRoutes
     .post('/addrequest', userAuth, tryCatch(makeRequest))
     .get('/userrequest', userAuth, tryCatch(getRequestbyuser))
     .delete('/deleterequest/:equipment', userAuth, tryCatch(removeRequest))
+
+
 export default userRoutes;
