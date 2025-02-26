@@ -6,12 +6,10 @@ import Token from "../../Models/token";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import Doctor from "../../Models/Doctor";
-import path from "path";
 import DrDetails, { DrDetailsType } from "../../Models/DoctorDetails";
 import { DoctorType } from "../../Models/Doctor";
 import sendEmail from "../../utils/emailService";
 import Review from "../../Models/Review";
-import { log } from "console";
 import UserDetails from "../../Models/Userdetails";
 
 interface DoctorPopulated {
@@ -186,10 +184,10 @@ export const editDetails = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { age, occupation, address, gender, bloodgroup, profileImage } =
+  const {id, age, occupation, address, gender, bloodgroup, profileImage } =
     req.body;
-  const userId = req.user?.id;
-
+  const userId = id;
+  
   const updateData: editDatas = {
     age,
     occupation,
